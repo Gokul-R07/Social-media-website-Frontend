@@ -1,0 +1,118 @@
+.Auth {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 4rem;
+}
+
+.Auth > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* left side */
+.a-left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+}
+
+.a-left > img {
+  width: 4rem;
+  height: 4rem;
+  object-fit: cover;
+  transform: scale(1.5);
+}
+.Webname {
+  display: flex;
+  flex-direction: column;
+}
+.Webname>span{
+  text-align: center;
+}
+.siteName {
+  font-size: 3rem;
+  color: orange;
+  padding-bottom: 10px;
+}
+
+.siteDes {
+  font-size: 1rem;
+  font-style: italic;
+}
+
+.infoForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  background-color: var(--cardColor);
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.infoInput {
+  border: none;
+  outline: none;
+  background-color: var(--inputColor);
+  border-radius: 8px;
+  padding: 20px;
+  flex: 1;
+}
+
+.infoForm > div {
+  display: flex;
+  gap: 1rem;
+  height: 2rem;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.infoButton {
+  width: 6rem;
+  height: 2rem;
+  align-self: flex-end;
+}
+
+@media only screen and (max-width: 320px) {
+  .Auth {
+    padding: 0rem 1rem;
+    gap: 1px;
+  }
+  .infoForm {
+    gap: 1px;
+  }
+}
+@media only screen and (max-width: 650px) {
+  .Auth {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .a-left {
+    gap: 10px;
+  }
+}
+@media only screen and (max-width: 852px) {
+  .infoForm {
+    gap: 1rem;
+  }
+  .infoForm > div {
+    height: auto;
+  }
+  .nameDiv,
+  .usernameDiv,
+  .passDiv {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .a-left {
+    gap: 1rem;
+  }
+}

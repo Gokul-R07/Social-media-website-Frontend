@@ -1,0 +1,38 @@
+.editForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+.infoInputs {
+  border: none;
+  outline: none;
+  background-color: var(--inputColor);
+  border-radius: 8px;
+  padding: 20px;
+  flex: 1;
+}
+.editForm > div {
+  display: flex;
+  gap: 1rem;
+  height: 2rem;
+  width: 90%;
+}
+@media only screen and (max-width: 645px) {
+  .nameContainer,
+  .locationContainer,
+  .uploadContainer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .editForm > div {
+    height: auto;
+  }
+}
+@media only screen and (max-width: 320px) {
+  .editForm {
+    gap: 1rem;
+  }
+}

@@ -1,0 +1,37 @@
+.LogoSearch {
+  width: 94%;
+}
+
+.Search {
+  display: flex;
+  background-color: var(--inputColor);
+  border-radius: 10px;
+  padding: 5px;
+}
+.Search > input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  width: auto;
+  flex: 1;
+}
+.s-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(106.23deg, #f99827, #f95f35 100%);
+  border-radius: 5px;
+  padding: 4px;
+  color: white;
+}
+.s-icon:hover {
+  cursor: pointer;
+}
+
+
+@media only screen and (max-width: 768px) {
+  .Search > input {
+    width: 100px;
+  }
+}
+
