@@ -78,15 +78,15 @@
 }
 @media only screen and (max-width: 1005px) {
   .postOptions {
-   display: grid;
-   grid-template-columns: auto auto;
-   gap:10px
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 10px;
   }
   .ps-button {
     margin-left: 2rem;
     text-align: center;
   }
-} 
+}
 @media only screen and (max-width: 320px) {
   .PostShare {
     flex-direction: column;

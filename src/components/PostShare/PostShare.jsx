@@ -1,16 +1,18 @@
 import React, { useState, useRef } from "react";
-import "./PostShare.css";
 import { UilScenery } from "@iconscout/react-unicons";
 import { UilPlayCircle } from "@iconscout/react-unicons";
 import { UilLocationPoint } from "@iconscout/react-unicons";
 import { UilSchedule } from "@iconscout/react-unicons";
 import { UilTimes } from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
-import { uploadImage, uploadPost } from "../../actions/uploadAction";
+import { uploadPost } from "../../actions/uploadAction";
+import { storage } from "../../firebase.js";
+import { v4 } from "uuid";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { data } from "../../defaultImages";
+import "./PostShare.css";
 
 const PostShare = () => {
-  const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
-  const loading = useSelector((state) => state.postReducer.uploading);
   const dispatch = useDispatch();
   const [image, setImage] = useState(null);
   const imageRef = useRef();
@@ -28,29 +30,28 @@ const PostShare = () => {
     desc.current.value = "";
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (desc.current.value === "" || imageRef.current.value === "") {
       return;
     }
-    const newPost = {
-      userId: user._id,
-      username: user.username,
-      desc: desc.current.value,
-    };
     if (image) {
-      const data = new FormData();
-      const filename = Date.now() + image.name;
-      data.append("name", filename);
-      data.append("file", image);
-      newPost.image = filename;
-      try {
-        dispatch(uploadImage(data));
-      } catch (error) {
-        console.log(error);
-      }
+      const description = desc.current.value;
+      const filename = v4() + image.name;
+      const imageRef = ref(storage, `images/${filename}`);
+      uploadBytes(imageRef, image).then(async (snapshot) => {
+        await getDownloadURL(snapshot.ref).then((url) => {
+          const newPost = {
+            userId: user._id,
+            image: url,
+            username: user.username,
+            desc: description,
+          };
+          dispatch(uploadPost(newPost));
+        });
+      });
     }
-    dispatch(uploadPost(newPost));
+
     reset();
   };
   return (
@@ -58,8 +59,8 @@ const PostShare = () => {
       <img
         src={
           user.profilePicture
-            ? serverPublic + user.profilePicture
-            : serverPublic + "defaultProfile1.png"
+            ? user.profilePicture
+            : data[0].defaultProfileImage
         }
         alt=""
       />
@@ -90,10 +91,9 @@ const PostShare = () => {
           <button
             className="button ps-button"
             onClick={handleSubmit}
-            disabled={loading}
             type="submit"
           >
-            {loading ? "Uploading..." : "Share"}
+            Share
           </button>
 
           <div style={{ display: "none" }}>

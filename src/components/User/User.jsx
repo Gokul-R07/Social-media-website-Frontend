@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { followUser, unfollowUser } from "../../actions/userAction";
+import { data } from "../../defaultImages";
 import "./User.css";
 
 const User = ({ person }) => {
@@ -10,7 +11,6 @@ const User = ({ person }) => {
   const [following, setFollowing] = useState(
     person.followers.includes(user._id)
   );
-  const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
   const handleFollow = () => {
     following
       ? dispatch(unfollowUser(person._id, user))
@@ -24,8 +24,8 @@ const User = ({ person }) => {
         <img
           src={
             person.profilePicture
-              ? serverPublic + person.profilePicture
-              : serverPublic + "defaultProfile1.png"
+              ? person.profilePicture
+              : data[0].defaultProfileImage
           }
           alt=""
           className="followerImage"

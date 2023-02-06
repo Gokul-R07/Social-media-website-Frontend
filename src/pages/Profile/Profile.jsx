@@ -1,9 +1,10 @@
 import React from "react";
 import ProfileLeft from "../../components/ProfileLeft/ProfileLeft";
-import "./Profile.css";
 import PostSide from "../../components/PostSide/PostSide";
 import ProfileCard from "../../components/ProfileCard/ProfileCard.jsx";
 import RightSide from "../../components/RightSide/RightSide.jsx";
+import "./Profile.css";
+
 
 const Profile = () => {
   return (

@@ -1,20 +1,18 @@
 import React from "react";
-import "./ProfileCard.css";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { data } from "../../defaultImages";
+import "./ProfileCard.css";
 
 const ProfileCard = ({ location }) => {
   const { user } = useSelector((state) => state.authReducer.authData);
   const posts = useSelector((state) => state.postReducer.posts);
-  const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
   return (
     <div className="ProfileCard">
       <div className="ProfileImages">
         <img
           src={
-            user.coverPicture
-              ? serverPublic + user.coverPicture
-              : serverPublic + "defaultCover1.png"
+            user.coverPicture ? user.coverPicture : data[0].defaultCoverImage
           }
           alt=""
         />
@@ -22,8 +20,8 @@ const ProfileCard = ({ location }) => {
           className={user.profilePicture ? "box-shadow" : ""}
           src={
             user.profilePicture
-              ? serverPublic + user.profilePicture
-              : serverPublic + "defaultProfile1.png"
+              ? user.profilePicture
+              : data[0].defaultProfileImage
           }
           alt=""
         />

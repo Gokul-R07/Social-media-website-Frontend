@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import "./Posts.css";
 import Post from "../Post/Post";
 import { useSelector, useDispatch } from "react-redux";
 import { getTimelinePosts } from "../../actions/postAction";
 import { useParams } from "react-router-dom";
+import "./Posts.css";
 
 const Posts = () => {
   const dispatch = useDispatch();
@@ -16,9 +16,6 @@ const Posts = () => {
 
   if (params.id) {
     posts = posts.filter((post) => post.userId === params.id);
-  }
-  else {
-    posts = posts.filter((post) => post.userId !== user._id);
   }
   return (
     <div className="Posts">

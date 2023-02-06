@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import "./InfoCard.css";
 import { UilPen } from "@iconscout/react-unicons";
 import ProfileModal from "../ProfileModal/ProfileModal";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import * as UserApi from "../../api/UserRequest.js";
 import { logOut } from "../../actions/AuthAction";
+import "./InfoCard.css";
+
 
 const InfoCard = () => {
   const dispatch = useDispatch();

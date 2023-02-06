@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Modal, useMantineTheme } from "@mantine/core";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { uploadImage } from "../../actions/uploadAction";
 import { updateUser } from "../../actions/userAction";
+import { storage } from "../../firebase.js";
+import { v4 } from "uuid";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import "./ProfileModal.css";
 
 const ProfileModal = ({ modalOpened, setModalOpened, data }) => {
@@ -15,7 +18,6 @@ const ProfileModal = ({ modalOpened, setModalOpened, data }) => {
   const [coverImage, setCoverImage] = useState(null);
   const dispatch = useDispatch();
   const param = useParams();
-  const { user } = useSelector((state) => state.authReducer.authData);
 
   //handleChange function
   const handleChange = (e) => {
@@ -37,30 +39,26 @@ const ProfileModal = ({ modalOpened, setModalOpened, data }) => {
     e.preventDefault();
     let UserData = formData;
     if (profileImage) {
-      const data = new FormData();
-      const fileName = Date.now() + profileImage.name;
-      data.append("name", fileName);
-      data.append("file", profileImage);
-      UserData.profilePicture = fileName;
-      try {
-        dispatch(uploadImage(data));
-      } catch (err) {
-        console.log(err);
-      }
+      const filename = v4() + profileImage.name;
+      const imageRef = ref(storage, `images/${filename}`);
+      uploadBytes(imageRef, profileImage).then(async (snapshot) => {
+        await getDownloadURL(snapshot.ref).then((url) => {
+          UserData.profilePicture = url;
+          dispatch(updateUser(param.id, UserData));
+        });
+      });
     }
     if (coverImage) {
-      const data = new FormData();
-      const fileName = Date.now() + coverImage.name;
-      data.append("name", fileName);
-      data.append("file", coverImage);
-      UserData.coverPicture = fileName;
-      try {
-        dispatch(uploadImage(data));
-      } catch (err) {
-        console.log(err);
-      }
+      const filename = v4() + coverImage.name;
+      const imageRef = ref(storage, `images/${filename}`);
+      uploadBytes(imageRef, coverImage).then(async (snapshot) => {
+        await getDownloadURL(snapshot.ref).then((url) => {
+          UserData.coverPicture = url;
+          dispatch(updateUser(param.id, UserData));
+        });
+      });
     }
-    dispatch(updateUser(param.id, UserData));
+
     setModalOpened(false);
   };
 

@@ -28,10 +28,8 @@
   cursor: pointer;
 }
 
-
 @media only screen and (max-width: 768px) {
   .Search > input {
     width: 100px;
   }
 }
-

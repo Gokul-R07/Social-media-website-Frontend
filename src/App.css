@@ -39,13 +39,13 @@
   border-radius: 0.5rem;
   background: var(--buttonBg);
   transition: all 100ms ease-out;
+  font-weight: bold;
 }
 
 .button:hover {
   cursor: pointer;
-  color: var(--orange);
-  background: transparent;
-  border: 2px solid var(--orange);
+  background:black;
+  color:white;
 }
 .button:disabled {
   background: blue;
