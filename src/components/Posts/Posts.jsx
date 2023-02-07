@@ -12,7 +12,7 @@ const Posts = () => {
   const params = useParams();
   useEffect(() => {
     dispatch(getTimelinePosts(user._id));
-  }, []);
+  }, [user.following]);
 
   if (params.id) {
     posts = posts.filter((post) => post.userId === params.id);
