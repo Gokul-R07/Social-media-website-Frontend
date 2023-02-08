@@ -25,6 +25,7 @@ const PostShare = () => {
     }
   };
 
+  const [uploading, setUploading] = useState(false);
   const reset = () => {
     setImage(null);
     desc.current.value = "";
@@ -39,15 +40,17 @@ const PostShare = () => {
       const description = desc.current.value;
       const filename = v4() + image.name;
       const imageRef = ref(storage, `images/${filename}`);
+      setUploading(true);
       uploadBytes(imageRef, image).then(async (snapshot) => {
-        await getDownloadURL(snapshot.ref).then((url) => {
+        await getDownloadURL(snapshot.ref).then(async (url) => {
           const newPost = {
             userId: user._id,
             image: url,
             username: user.username,
             desc: description,
           };
-          dispatch(uploadPost(newPost));
+          await dispatch(uploadPost(newPost));
+          setUploading(false);
         });
       });
     }
@@ -109,6 +112,12 @@ const PostShare = () => {
           <div className="previewImage">
             <UilTimes onClick={() => setImage(null)} />
             <img src={URL.createObjectURL(image)} alt="" />
+          </div>
+        )}
+        {uploading && (
+          <div>
+            {" "}
+            <p>Uploading...</p>
           </div>
         )}
       </form>

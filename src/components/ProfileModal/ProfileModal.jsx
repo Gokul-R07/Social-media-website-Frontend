@@ -35,16 +35,16 @@ const ProfileModal = ({ modalOpened, setModalOpened, data }) => {
   };
 
   //submit function
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let UserData = formData;
     if (profileImage) {
       const filename = v4() + profileImage.name;
       const imageRef = ref(storage, `images/${filename}`);
       uploadBytes(imageRef, profileImage).then(async (snapshot) => {
-        await getDownloadURL(snapshot.ref).then((url) => {
+        await getDownloadURL(snapshot.ref).then(async (url) => {
           UserData.profilePicture = url;
-          dispatch(updateUser(param.id, UserData));
+          await dispatch(updateUser(param.id, UserData));
         });
       });
     }
@@ -52,13 +52,13 @@ const ProfileModal = ({ modalOpened, setModalOpened, data }) => {
       const filename = v4() + coverImage.name;
       const imageRef = ref(storage, `images/${filename}`);
       uploadBytes(imageRef, coverImage).then(async (snapshot) => {
-        await getDownloadURL(snapshot.ref).then((url) => {
+        await getDownloadURL(snapshot.ref).then(async (url) => {
           UserData.coverPicture = url;
-          dispatch(updateUser(param.id, UserData));
+          await dispatch(updateUser(param.id, UserData));
         });
       });
     }
-
+    await dispatch(updateUser(param.id, UserData));
     setModalOpened(false);
   };
 
