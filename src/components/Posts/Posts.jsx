@@ -16,6 +16,8 @@ const Posts = () => {
 
   if (params.id) {
     posts = posts.filter((post) => post.userId === params.id);
+  } else {
+    posts = posts.filter((post) => post.userId !== user._id);
   }
   return (
     <div className="Posts">
