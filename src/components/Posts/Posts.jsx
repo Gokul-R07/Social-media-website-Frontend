@@ -26,13 +26,13 @@ const Posts = ({ page }) => {
         : posts.map((post, id) => {
             return <Post data={post} key={id} />;
           })}
-      {posts.length === 0 && page == "Home" && (
+      {posts.length === 0 && page === "Home" && (
         <h4>
           No posts are there.Click <i>Follow</i> button to view your friends
           posts...
         </h4>
       )}
-      {posts.length === 0 && page == "Profile" && (
+      {posts.length === 0 && page === "Profile" && (
         <h4>
           No posts are there.Click <i>Share</i> button to share your moments...
         </h4>
