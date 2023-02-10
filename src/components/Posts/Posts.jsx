@@ -5,7 +5,7 @@ import { getTimelinePosts } from "../../actions/postAction";
 import { useParams } from "react-router-dom";
 import "./Posts.css";
 
-const Posts = () => {
+const Posts = ({ page }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.authReducer.authData);
   let { posts, loading } = useSelector((state) => state.postReducer);
@@ -26,8 +26,16 @@ const Posts = () => {
         : posts.map((post, id) => {
             return <Post data={post} key={id} />;
           })}
-      {posts.length === 0 && (
-        <h4>No posts are there.Click Share button to share your moments...</h4>
+      {posts.length === 0 && page == "Home" && (
+        <h4>
+          No posts are there.Click <i>Follow</i> button to view your friends
+          posts...
+        </h4>
+      )}
+      {posts.length === 0 && page == "Profile" && (
+        <h4>
+          No posts are there.Click <i>Share</i> button to share your moments...
+        </h4>
       )}
     </div>
   );
