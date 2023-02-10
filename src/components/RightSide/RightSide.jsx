@@ -14,7 +14,7 @@ const RightSide = ({ page }) => {
   return (
     <div className="RightSide">
       <div className="navIcons">
-        <Link style={{}} to="../home">
+        <Link  to="../home">
           {page === "Home" ? (
             <img title="Home" src={HomeChecked} alt="" />
           ) : (
